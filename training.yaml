@@ -1,0 +1,20 @@
+base_path: "/home/panekj/programming/Unet_2D/callbacks"
+training_sample_path:  ""
+training_target_path:  ""
+validation_sample_path:  ""
+validation_target_path:  ""
+
+unet:
+  build:
+    input_shape_: !!python/tuple [800,1000,1] # XYC
+    n_depth: 4
+    use_transconv: True
+    normalization: 'batch'
+    norm_kwargs: null
+    output_channels: 1
+    last_activation: 'sigmoid'
+  fit:
+    epochs: 1
+    batch_size: 1
+    steps_per_epoch: 2
+    validation_steps: 5
