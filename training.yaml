@@ -1,4 +1,4 @@
-base_path: "/home/panekj/programming/Unet_2D/callbacks"
+base_path: ""
 training_sample_path:  ""
 training_target_path:  ""
 validation_sample_path:  ""
@@ -10,11 +10,10 @@ unet:
     n_depth: 4
     use_transconv: True
     normalization: 'batch'
-    norm_kwargs: null
     output_channels: 1
     last_activation: 'sigmoid'
   fit:
-    epochs: 1
-    batch_size: 1
-    steps_per_epoch: 2
-    validation_steps: 5
+    epochs: 20
+    batch_size: 5
+    steps_per_epoch: 32
+    validation_steps: 32

@@ -61,13 +61,19 @@ def main(config: dict) -> None:
     
 
     ## TRAINING ##
-    dataset = tf.data.Dataset.from_generator(LoadFromFolder,
-                                             args=['data/imgs', 'data/labels'],
+    training_dataset = tf.data.Dataset.from_generator(LoadFromFolder,
+                                             args=[config["training_sample_path"], config["training_target_path"]],
                                              output_types=((tf.float32), (tf.float32)),
                                              output_shapes=((800,1000,1), (800,1000,1))).batch(config['unet']['fit'].pop('batch_size'))
-    unet.train(dataset,
+
+    validation_dataset = tf.data.Dataset.from_generator(LoadFromFolder,
+                                             args=[config["validation_sample_path"], config["validation_target_path"]],
+                                             output_types=((tf.float32), (tf.float32)),
+                                             output_shapes=((800,1000,1), (800,1000,1))).batch(1)
+
+    unet.train(training_dataset,
                callbacks=callbacks,
-               validation_dataset=dataset,
+               validation_dataset=validation_dataset,
                **config['unet']['fit'])
 
     ## SAVING TRAINING HISTORY
