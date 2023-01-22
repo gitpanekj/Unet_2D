@@ -7,13 +7,14 @@ validation_target_path:  ""
 unet:
   build:
     input_shape_: !!python/tuple [800,1000,1] # XYC
-    n_depth: 4
+    n_depth: 3
     use_transconv: True
     normalization: 'batch'
     output_channels: 1
     last_activation: 'sigmoid'
+    use_attention: True
   fit:
-    epochs: 20
+    epochs: 10
     batch_size: 5
     steps_per_epoch: 32
     validation_steps: 32

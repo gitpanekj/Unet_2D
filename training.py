@@ -44,11 +44,17 @@ def main(config: dict) -> None:
 
 
     # compile
-    dice_loss = DiceLoss()
+    def custom_loss():
+        loss_1 = DiceLoss()
+        loss_2 = BinaryFocalCrossentropy(gamma=2)
+        def call(y_true: np.array, y_pred: np.array):
+            return loss_1(y_true, y_pred) + loss_2(y_true, y_pred)
+        return call
+
     #metrics
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
     unet.compile(optimizer = optimizer,
-                 loss = dice_loss,
+                 loss = custom_loss,
                  metrics=JaccardIndex(threshold=0.5))
 
 
