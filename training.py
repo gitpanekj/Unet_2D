@@ -54,7 +54,7 @@ def main(config: dict) -> None:
     #metrics
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
     unet.compile(optimizer = optimizer,
-                 loss = custom_loss,
+                 loss = custom_loss(),
                  metrics=JaccardIndex(threshold=0.5))
 
 
